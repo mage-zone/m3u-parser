@@ -1,12 +1,12 @@
 {
-    "name": "gemorroj/m3u-parser",
+    "name": "magezone/m3u-parser",
     "description": "m3u playlist parser/generator",
     "keywords": ["m3u", "m3u8", "playlist"],
     "type": "library",
     "license": "LGPL-3.0-or-later",
     "authors": [
         {
-            "name": "Gemorroj"
+            "name": "Michal (originaly: Gemorroj)"
         }
     ],
     "require": {
