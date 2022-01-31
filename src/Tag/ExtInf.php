@@ -85,7 +85,7 @@ class ExtInf implements ExtTagInterface
         $dataLineStr = \trim($dataLineStr);
 
         // Parse duration and title with regex
-        \preg_match('/^(-?[\d\.]+)\s*(?:(?:[^=]+=["\'][^"\']*["\'])|(?:[^=]+=[^ ]*))*,(.*)$/', $dataLineStr, $matches);
+        \preg_match('/^(-?[\d\.]+)\s*(?:(?:[^=]+=["][^"]*["])|(?:[^=]+=[^ ]*))*,(.*)$/', $dataLineStr, $matches);
 
         $duration = !empty($matches[1]) ? (float)$matches[1] : 0;
         $title = !empty($matches[2]) ? trim($matches[2]) : '';
