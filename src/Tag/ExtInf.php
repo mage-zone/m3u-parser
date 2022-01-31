@@ -12,6 +12,7 @@ class ExtInf implements ExtTagInterface
      * @var string
      */
     private $title;
+
     /**
      * @var float
      */
@@ -31,7 +32,7 @@ class ExtInf implements ExtTagInterface
     {
         $attributesString = $this->getAttributesString();
 
-        return '#EXTINF:'.$this->getDuration().('' === $attributesString ? '' : ' '.$attributesString).','.$this->getTitle();
+        return '#EXTINF:' . $this->getDuration() . ('' === $attributesString ? '' : ' ' . $attributesString) . ',' . $this->getTitle();
     }
 
     /**
@@ -75,10 +76,10 @@ class ExtInf implements ExtTagInterface
     protected function make(string $lineStr): void
     {
         /*
-EXTINF format:
-#EXTINF:<duration> [<attributes-list>], <title>
-example:
-#EXTINF:-1 tvg-name=Первый_HD tvg-logo="Первый канал" deinterlace=4 group-title="Эфирные каналы",Первый канал HD
+            EXTINF format:
+            #EXTINF:<duration> [<attributes-list>], <title>
+            example:
+            #EXTINF:-1 tvg-name=Первый_HD tvg-logo="Первый канал" deinterlace=4 group-title="Эфирные каналы",Первый канал HD
          */
         $dataLineStr = \substr($lineStr, \strlen('#EXTINF:'));
         $dataLineStr = \trim($dataLineStr);
@@ -86,11 +87,13 @@ example:
         // Parse duration and title with regex
         \preg_match('/^(-?[\d\.]+)\s*(?:(?:[^=]+=["\'][^"\']*["\'])|(?:[^=]+=[^ ]*))*,(.*)$/', $dataLineStr, $matches);
 
-        $this->setDuration((float) $matches[1]);
-        $this->setTitle(\trim($matches[2]));
+        $duration = !empty($matches[1]) ? (float)$matches[1] : 0;
+        $title = !empty($matches[2]) ? trim($matches[2]) : '';
+        $this->setDuration($duration);
+        $this->setTitle($title);
 
         // Attributes are remaining string after remove duration and title
-        $attributes = \preg_replace('/^'.\preg_quote($matches[1], '/').'(.*)'.\preg_quote($matches[2], '/').'$/', '$1', $dataLineStr);
+        $attributes = \preg_replace('/^' . \preg_quote($duration, '/') . '(.*)' . \preg_quote($title, '/') . '$/', '$1', $dataLineStr);
 
         $splitAttributes = \explode(' ', $attributes, 2);
 
