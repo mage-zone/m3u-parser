@@ -12,7 +12,7 @@
 
 ### Installation:
 ```bash
-composer require gemorroj/m3u-parser
+composer require mage-zone/m3u-parser
 ```
 
 
